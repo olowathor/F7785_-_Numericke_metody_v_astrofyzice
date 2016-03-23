@@ -1,0 +1,66 @@
+#matplotlib inline
+import numpy as np
+import scipy
+import matplotlib.pylab as plt
+
+# Widgety
+from tkinter import *
+class Application(Frame):
+    """A GUI APPLICATION ON VERHAUSTEL DIAGRAMS with some inputs and SUBMIT button"""
+    
+    def __init__(self,master):
+        Frame.__init__(self,master)
+        self.grid()
+        self.create_widgets()
+        
+    def create_widgets(self):
+        """Creata button, text and entry widgets"""
+        self.instruction = Label(self,text = "Enter 'r' as float for logistic mapping")
+        self.instruction.grid(row = 0, column = 0, columnspan = 2, sticky = W)
+
+        self.parameter1 = Entry(self)
+        self.parameter1.grid(row = 0, column = 1, sticky = W)
+
+        self.instruction = Label(self,text = "Enter 'function_n' as float")
+        self.instruction.grid(row = 1, column = 0, columnspan = 2, sticky = W)
+
+        self.parameter2 = Entry(self)
+        self.parameter2.grid(row = 1, column = 1, sticky = W)
+
+        self.instruction = Label(self,text = "Enter 'VH_n' as float")
+        self.instruction.grid(row = 2, column = 0, columnspan = 2, sticky = W)
+        
+        self.parameter3 = Entry(self)
+        self.parameter3.grid(row = 2, column = 1, sticky = W)
+        
+        self.instruction = Label(self,text = "Enter 'VH_x' as float")
+        self.instruction.grid(row = 3, column = 0, columnspan = 2, sticky = W)
+        
+        self.parameter4 = Entry(self)
+        self.parameter4.grid(row = 3, column = 1, sticky = W)
+
+        self.submit_button = Button(self, text = "Submit", command = self.reveal)
+        self.submit_button.grid(row = 4, column = 1, sticky = W)
+        
+        self.text = Text(self, width = 80, height = 10, wrap = WORD)
+        self.text.grid(row = 5, column = 0, columnspan = 2, sticky = W)
+        
+    def reveal(self):
+        """Executes plot_VH if all parameters are real numbers"""
+        try:
+            par1 = float(self.parameter1.get())
+            par2 = float(self.parameter2.get())
+            par3 = float(self.parameter3.get())
+            par4 = float(self.parameter4.get())
+            message = "funguje to"
+        except ValueError:
+            message = "nefunguje to"
+        self.text.delete(0.0, END)
+        self.text.insert(0.0, message)
+        
+root = Tk()
+root.title("Interactive VH")
+root.geometry("500x300")
+app = Application(root)
+
+root.mainloop()
