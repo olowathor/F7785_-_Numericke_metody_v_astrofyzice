@@ -1,0 +1,80 @@
+%%
+%% This is file `bracketsym.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% moremath.dtx  (with options: `package,latex,bracketsym')
+%% 
+%% This is a GENERATED file.
+%% 
+%% Copyright (C) 1998-2001 David Ne{\accent  20 c}as (Yeti)
+%% <yeti@physics.muni.cz>.
+%% 
+%% This package is free software; it can be copied and/or modified under the
+%% terms of GNU Library General Public License as published by the Free
+%% Software Foundation; either version 2 of the License or (at your option)
+%% any later version.
+%% 
+%% This package is distributed in the hope that it will be useful, but
+%% WITHOUT ANY WARRANTY. See COPYING for details.
+%% 
+%% Please note: This is NOT a source file.  No changes should be applied on this
+%% file directly, but only through moremath.dtx (the only source file),
+%% documenting(!) them.
+%% 
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}[1996/12/01]
+\ProvidesPackage
+  {bracketsym}[1999/05/07 v1.2.0 Dirac bra and ket notation (Yeti)]
+\def\@ifbracket#1{\@ifnextchar [{\@firstoftwo{#1}}}
+\DeclareOption{ymsbm}
+  {\def\ack{\RequirePackage{amssyymb}}%
+   \br@ketcorr\@ne mu
+   \def\bra{\ybra\mskip\br@ketcorr}%
+   \def\ket{\mskip\br@ketcorr\yket}}
+\DeclareOption{latexonly}
+  {\def\ack{\relax}%
+   \br@ketcorr1.5mu
+   \def\bra{\langle\mskip\br@ketcorr}%
+   \def\ket{\mskip\br@ketcorr\rangle}}
+\newmuskip\br@ketcorr
+\@ifdefinable\ack{}%
+\@ifdefinable\bra{}%
+\@ifdefinable\ket{}%
+\ExecuteOptions{latexonly}
+\ProcessOptions
+\ack
+\def\ack{\mathinner\vert}
+\newcommand\bop[1]{\mathbf{\hat{\mit#1}}}
+\newcommand\vop[1]{\mathbf{\hat{\vec{#1}\mskip4mu}\mskip-4mu}}
+\newcommand\sop[1]{\mathbf{\hat{\mathsf{#1}}}}
+\@ifdefinable\m@athvert{\mathchardef\m@thvert\mathcode`\|}
+\@ifdefinable\bracketsym{\relax}
+{\catcode`\<\active\catcode`\|\active\catcode`\>\active
+  \gdef\bracketsym
+    {{\catcode`\<\active\catcode`\|\active\catcode`\>\active
+      \global\let<\bra\global\let|\ack\global\let>\ket}
+    \mathcode`\<"8000\mathcode`\|"8000\mathcode`\>"8000\relax}}
+\def\endbracketsym{\mathcode`\<\ls
+  \mathcode`\|\m@thvert\mathcode`\>\gr\relax}
+\@ifdefinable\gr{\mathchardef\gr\mathcode`\>}
+\@ifdefinable\ls{\mathchardef\ls\mathcode`\<}
+\endinput
+%%
+%% End of file `bracketsym.sty'.

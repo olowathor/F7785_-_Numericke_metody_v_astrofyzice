@@ -1,0 +1,51 @@
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{moremath}
+\usepackage[metapost]{mfpic}
+\usepackage{lscape}
+\usepackage{natbib}
+\bibpunct{(}{)}{\,;\,}{;}{,}{,}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+%\usepackage{txfonts}
+%\RequirePackage{setspace}
+%\setstretch{1.3}
+\usepackage{setspace}
+     \setlength\oddsidemargin{30.1pt}
+     \setlength\evensidemargin{30.1pt}
+     \setlength\marginparwidth{40pt}
+\setlength{\footskip}{32pt}
+\marginparsep 0pt
+\topmargin 0pt \headsep .5in
+\textheight 8.1in \textwidth 6in
+\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\baselinestretch}{1.66}
+\fancyhf{}
+\lhead{\small \sffamily \rightmark} %Leave the left of the header empty
+%\chead{} %Leave the center of the header empty
+\rhead{\small \sffamily \leftmark}
+\fancyhead[LE,RO]{\textbf{\thepage}}
+\fancyfoot[LE,RO]{\small \sffamily Numerické metody v astrofyzice}
+\renewcommand{\chaptermark}[1]{%
+ \small \markboth{#1}{}}
+\renewcommand{\footrulewidth}{0.5pt}
+%\setlength{\oddsidemargin}{36.1pt}
+%\setlength{\evensidemargin}{0pt}
+%\setlength{\topmargin}{0pt}
+%\setlength{\headsep}{0.5in}
+%\setlength{\textheight}{8.1in}
+%\setlength{\textwidth}{6.1in}
+%\setlength{\footskip}{32pt}
+%\brokenpenalty=10000
+\newcommand{\tef}{T_{\rm{eff}}}
+\newcommand{\gef}{GM_*(1-{\Gamma}_e)}
+\newcommand{\kapref}{\kappa_e^{\rm ref}}
+\newcommand{\deriv}[2]{\frac{{\rm d}#1}{{\rm d}#2}}

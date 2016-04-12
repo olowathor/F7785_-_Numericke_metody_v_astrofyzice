@@ -1,6 +1,3 @@
-[submodule "books/numerical-python-book-code"]
-    path = books/numerical-python-book-code
-    url = https://github.com/jrjohansson/numerical-python-book-code.git
 [submodule "students/ANM"]
 	path = students/ANM
 	url = https://github.com/Alseth/ANM.git

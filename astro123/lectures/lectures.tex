@@ -1,0 +1,62 @@
+\documentclass[12pt,a4paper,twoside]{report}
+
+\usepackage{lectures}
+
+\begin{document}
+\pagestyle{fancyplain}
+
+\begin{titlepage}
+\begin{center}
+\vspace*{1in}
+{\LARGE \sffamily Numerické metody v astrofyzice}
+\par
+\vspace{1.5in}
+{\large Viktor Votruba, Zdeněk Janák}
+\par
+\vfill
+\par
+\vspace{0.5in}
+Přírodovědecká fakulta, sekce fyzika
+\par
+\vspace{0.5in}
+Masarykova univerzita Brno
+\par
+\vspace{0.5in}
+\today
+\end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+\begin{figure}[t!]
+\begin{flushright}
+\scalebox{0.85}{\includegraphics{steve_jobs.jpg}}
+\end{flushright}
+\end{figure}
+\begin{verbatim}
+
+
+
+
+
+What a computer is to me is the most remarkable tool that we have ever
+come up with. It's the equivalent of a bicycle for our minds.
+                  
+		                                   Steve Jobs
+
+
+\end{verbatim}
+
+\tableofcontents
+\thispagestyle{empty}
+
+\input{chapter1.tex}
+\input{chapter2.tex}
+\input{chapter3.tex}
+\input{chapter4.tex}
+\input{chapter5.tex}
+\input{chapter6.tex}
+
+\bibliographystyle{plainnat}
+\bibliography{lectures}
+
+\end{document}

@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=iso-8859-2">
+   <META NAME="Author" CONTENT="David Nečas (Yeti)">
+   <TITLE>Moremath bundle README</TITLE>
+</HEAD>
+<BODY>
+
+<H2>Moremath</H2>
+
+<p>Copyright (C) 1998-2001 David Nečas (Yeti)
+&lt;<a href="mailto:yeti@physics.muni.cz">yeti@physics.muni.cz</a>&gt;.</p>
+
+<P>This package is free software; you can redistribute it and/or modify it
+under the terms of the GNU Library General Public License as published by
+the Free Software Foundation; either version&nbsp;2 of the License,
+or (at your option) any later version.</p>
+
+<P>This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.
+See the <A HREF="COPYING">GNU General Public License</A>
+for more details.</p>
+
+<HR>
+
+<H2>Description</H2>
+
+<P>This README comes with MoreMath v1.2.1a (2001/09/07).</P>
+
+<P>Bundle <code>moremath</code> consists of several packages extending LaTeX2e
+capabilities in following major areas: vector typesetting, bold greek
+letters availability, numbers/units formatting, better linebreaks at binary
+operators/relations, Dirac bra and ket notation. Moreover it includes
+Slanted Sans Serif Bold Extended Computer Modern font intended for vector
+typesetting. Some parts of the bundle work in Plain TeX too.</P>
+
+<H2>Installation</H2>
+
+<P>I have tried to automate the installation process for following TeX
+systems: UNIX systems <A HREF="#TDS">conforming TDS</A>
+(TeX Directory Standard);
+<A HREF="#CS-TeX">DOS CS-TeX</A>. The latter is supproted mostly for
+sentimental reasons and I can no longer check the automated installation
+really works. If your system is not listed above or the automated
+installation fails you have to install it <A HREF="#namual">manually</A>.</P>
+
+<p>If your TeX system is TDS conforming
+(e.g. some M$-Windows installations) and
+you have the make utility, you can also try to edit <code>Makefile</code> and
+convert commands like <code>mkdir</code> and
+<code>install</code> and shell constructions to your-OS equivalents (or get
+your-OS ports of <code>sh</code> and these commands; for M$-Windows use the
+<a href="http://sourceware.cygnus.com/cygwin/">Cygwin</a> tools).</P>
+
+<A NAME="TDS"></A>
+<H3>TDS conforming systems</H3>
+
+<P>Edit the <code>Makefile</code> and change BASEDIR value to root
+TeX directory to which
+you want to install moremath. Then run <code>make all</code>.
+If you want documentation
+(recommended ;-) run <code>make doc</code>. Then run <code>make
+install</code> (it installs documentation too---if any is
+generated---to <code>$(BASEDIR)/doc/latex/trific/</code>).
+Command <code>make clean</code> does what you expect.</P>
+
+<A NAME="CS-TeX"></A>
+<H3>DOS CS-TeX</H3>
+<P>Enter TeX menu system (not needed, if you have all TeX-specific
+environment variables set globally). Then run <code>make.bat all</code>.
+If you want documentation (recommended ;-) run <code>make.bat doc</code>.
+Then run <code>make.bat install</code> (it installs documentation too---if
+any is generated---to <code>%EMTEXDIR%\doc\trific</code>).
+Command <code>make.bat clean</code> does what you expect.</P>
+
+<A NAME="manual"></A>
+<H3>Manual installation</H3>
+
+<P>Following description is quite `generic' (i.e. not very concrete).
+On other hand it should work on almost any TeX installation in the
+world---assuming you have enough rights.</P>
+
+<P>Run the file <code>moremath.ins</code> through Plain TeX
+(can be nontrivial task).
+If it compiles succesfully, you'll get following files:
+<code>binbreak.sty</code>,
+<code>binbreak.tex</code>,
+<code>bracketsym.sty</code>
+(or <code>bracksym.sty</code> on 8+3 file systems),
+<code>mathabbr.sty</code>,
+<code>mathabbr.tex</code>,
+<code>moremath.sty</code>,
+<code>newvec.sty</code>,
+<code>valform.sty</code>,
+<code>valform.tex</code>,
+<code>cmvec10.mf</code>
+and <code>ot1cmvec.fd</code>.</P>
+
+<P>Move all <code>.sty</code> and <code>.fd</code> files to some location
+searched by (La)TeX for input files. It's recommended to move them to
+separate subdirectory called `trific', if it's possible.</P>
+
+<P>Move the file <code>cmvec10.mf</code> to some location searched by
+METAFONT for input files.</P>
+
+<P>Maybe you will have to run the file <code>cmvec10.mf</code> through
+METAFONT to generate metric (tfm) and bitmap (gf) files, convert the latter
+to packed (pk) format and move them
+to some standard places for font metrics and bitmaps.
+This is usually very nontrivial task, so thank God and your system
+administrator, if such things are done automatically when needed on your
+system.</P>
+
+<P>Now the important components are successfully installed (hope).
+To generate documentation, run the file <code>moremath.dtx</code> through
+LaTeX2e. Run it thrice, to get consistent cross references.
+If you want index, run MakeIndex on <code>moremath.idx</code>
+after the second run (on 8+3 file systems the name of <code>makeindex</code>
+will be somehow abbreviated).
+Optionally you can run DVI-to-PostScript convertor on resulting
+DVI file <code>moremath.dvi</code> to get PostScript version of
+documentation.</P>
+
+<P>Copy the documentation and the file <code>COPYING</code> to some
+safe/standard place and make sure everything mentioned above is copied where
+it belongs. Then you can delete all the generated stuff.</p>
+
+<H2>Compatibility</H2>
+
+<P>The MoreMath bundle is known to work with LaTeX2e 1996/12/01 or newer.
+Older versions of LaTeX2e seem to have some font problems.
+It definitely doesn't (and never will) work under LaTeX 2.09.</P>
+
+<P>Some parts of the bundle are Plain-TeX-ized, so they work under
+Plain TeX.</P>
+
+<P>To compile documentation, you need the amssymb package.</P>
+
+<HR>
+
+<P>Contact:<br>
+Email:
+<A HREF="mailto:yeti@physics.muni.cz">mailto:yeti@physics.muni.cz</A><br>
+Moremath home page:
+<A HREF="http://www.physics.muni.cz/~yeti/tex/moremath.shtml">http://www.physics.muni.cz/~yeti/tex/moremath.shtml</A>
+(entirely in czech)<br>
+Author's TeX page:
+<A HREF="http://www.physics.muni.cz/~yeti/tex/">http://www.physics.muni.cz/~yeti/tex/</A>
+(entirely in czech)</p>
+
+</BODY>
+</HTML>

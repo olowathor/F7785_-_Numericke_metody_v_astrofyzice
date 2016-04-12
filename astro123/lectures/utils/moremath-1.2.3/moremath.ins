@@ -1,0 +1,82 @@
+%% File: moremath.ins
+%%
+%% Copyright (C) 1998-2001 David Ne{\accent 20 c}as (Yeti)
+%% <yeti@physics.muni.cz>.
+%%
+%% This package is free software; it can be copied and/or modified under the
+%% terms of GNU Library General Public License as published by the Free
+%% Software Foundation; either version 2 of the License or (at your option)
+%% any later version.
+%%
+%% This package is distributed in the hope that it will be useful, but
+%% WITHOUT ANY WARRANTY. See COPYING for details.
+%%
+%% --------------- start of docstrip commands ------------------
+%%
+\input docstrip
+
+\preamble
+
+This is a GENERATED file.
+
+Copyright (C) 1998-2001 David Ne{\accent 20 c}as (Yeti)
+<yeti@physics.muni.cz>.
+
+This package is free software; it can be copied and/or modified under the
+terms of GNU Library General Public License as published by the Free
+Software Foundation; either version 2 of the License or (at your option)
+any later version.
+
+This package is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY. See COPYING for details.
+
+Please note: This is NOT a source file.  No changes should be applied on this
+file directly, but only through moremath.dtx (the only source file),
+documenting(!) them.
+
+\endpreamble
+
+\keepsilent
+%\askonceonly
+\askforoverwritefalse
+
+% generate packages
+\generate{\file{moremath.sty}{\from{moremath.dtx}{package,latex,moremath}}
+          \file{valform.sty}{\from{moremath.dtx}{package,latex,valform}}
+          \file{valform.tex}{\from{moremath.dtx}{package,plain,valform}}
+          \file{newvec.sty}{\from{moremath.dtx}{package,latex,newvec}}
+          \file{mathabbr.sty}{\from{moremath.dtx}{package,latex,mathabbr}}
+          \file{mathabbr.tex}{\from{moremath.dtx}{package,plain,mathabbr}}
+          \file{binbreak.sty}{\from{moremath.dtx}{package,latex,binbreak}}
+          \file{binbreak.tex}{\from{moremath.dtx}{package,plain,binbreak}}
+          \file{bracketsym.sty}{\from{moremath.dtx}{package,latex,bracketsym}}}
+
+% generate font definition file for cmvec
+\generate{\file{ot1cmvec.fd}{\from{moremath.dtx}{cmvec,fd}}}
+
+% I don't want to insert `%%' before `endinput;' so I have to define postamble
+% for METAFONT source directly
+\edef\mfpostamble{\MetaPrefix\space End of file `\outFileName'.}
+\usepostamble\mfpostamble
+
+% generate METAFONT source of cmvec10
+\generate{\file{cmvec10.mf}{\from{moremath.dtx}{cmvec,tenpoint}}}
+
+\ifToplevel{
+\Msg{**************************************************************** }
+\Msg{* }
+\Msg{* To finish installation please move generated *.sty, *.tex and }
+\Msg{* *.fd files to some place where (La)TeX can find them; move file }
+\Msg{* cmvec10.mf to some place where METAFONT can find it; and run }
+\Msg{* cmvec10.mf through METAFONT to render the font and to generate }
+\Msg{* metrics. }
+\Msg{* }
+\Msg{* To produce documentation run the file moremath.dtx through }
+\Msg{* LaTeX2e (index is supported). }
+\Msg{* }
+\Msg{* Happy TeXing! }
+\Msg{* }
+\Msg{**************************************************************** }
+}
+
+\endbatchfile

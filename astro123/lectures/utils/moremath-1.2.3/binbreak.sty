@@ -1,0 +1,160 @@
+%%
+%% This is file `binbreak.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% moremath.dtx  (with options: `package,latex,binbreak')
+%% 
+%% This is a GENERATED file.
+%% 
+%% Copyright (C) 1998-2001 David Ne{\accent  20 c}as (Yeti)
+%% <yeti@physics.muni.cz>.
+%% 
+%% This package is free software; it can be copied and/or modified under the
+%% terms of GNU Library General Public License as published by the Free
+%% Software Foundation; either version 2 of the License or (at your option)
+%% any later version.
+%% 
+%% This package is distributed in the hope that it will be useful, but
+%% WITHOUT ANY WARRANTY. See COPYING for details.
+%% 
+%% Please note: This is NOT a source file.  No changes should be applied on this
+%% file directly, but only through moremath.dtx (the only source file),
+%% documenting(!) them.
+%% 
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}[1996/12/01]
+\ProvidesPackage
+  {binbreak}[2004/03/19 v1.3.0 Binops, binrels linebreaking (Yeti)]
+\def\@ifbracket#1{\@ifnextchar [{\@firstoftwo{#1}}}
+\DeclareOption{redef}{\let\BinBreak\BinBreakRedef}
+\DeclareOption{save}{\let\BinBreak\BinBreakSave}
+\DeclareOption{hbox}{\let\BinBreak\BinBreakHbox}
+\DeclareOption{=}{\BinBreakChar[\savedrelpenalty]=\mathequal}
+\DeclareOption{+}{\BinBreakChar[\savedbinoppenalty]+\mathplus}
+\DeclareOption{-}{\BinBreakChar[\savedbinoppenalty]-\mathminus}
+\DeclareOption{*}{\BinBreakChar[\savedbinoppenalty]*\mathast}
+\DeclareOption{<}{\BinBreakChar[\savedrelpenalty]<\mathless}
+\DeclareOption{>}{\BinBreakChar[\savedrelpenalty]>\mathgreater}
+\DeclareOption{break}{\set@binbreak}
+\DeclareOption{nobreak}{\set@binnobreak}
+\@ifdefinable\comp@mch
+  {\def\comp@mch#1"#2.{\mathchar"#2 }}
+\@ifdefinable\comp@ch
+  {\def\comp@ch#1"#2#3#4.{\the\textfont"#3\char"#4 }}
+\@ifdefinable\gobble@mch
+  {\def\gobble@mch#1"#2.{"#2 }}
+\@ifdefinable\mch@penalty
+  {\def\mch@penalty#1"#2#3#4.{\ifnum#3=3\relax\savedrelpenalty
+    \else\savedbinoppenalty\fi }}
+\newcommand\bb@brackpen[1]%
+  {[\expandafter\mch@penalty\meaning#1.]#1}
+\newcommand\bb@access[1]%
+  {\begingroup\setbox0\hbox{$#1$}\endgroup}
+\newcommand\s@ved{saved}
+\newcommand\already@saved[1]%
+ {\PackageWarning{BinBreak}
+  {Request to redefine already redefined and saved command \noexpand#1
+   was ignored}}
+\newcommand\BinBreakRedef{\@ifbracket{\@BinBreakRedef[}%
+  {\expandafter\@BinBreakRedef\bb@brackpen}}
+\@ifdefinable\@BinBreakRedef
+  {\def\@BinBreakRedef[#1]#2{\bb@access#2%
+    \@ifundefined{\s@ved\expandafter\@gobble\string#2}%
+      {\edef#2{\begingroup\set@binnobreak
+        \expandafter\exhyphenpenalty#1\relax
+        \expandafter\comp@mch\meaning#2.%
+        \discretionary{}{\expandafter\comp@ch\meaning#2.}{}%
+        \endgroup}}%
+    {\already@saved{#2}}}}%
+\newcommand\BinBreakSave{\@ifbracket{\@BinBreakSave[}%
+  {\expandafter\@BinBreakSave\bb@brackpen}}
+\@ifdefinable\@BinBreakSave
+  {\def\@BinBreakSave[#1]#2{\bb@access#2%
+    \@ifundefined{\s@ved\expandafter\@gobble\string#2}%
+      {\expandafter\let\csname\s@ved%
+         \expandafter\@gobble\string#2\endcsname#2
+       \edef#2{\begingroup\set@binnobreak
+         \expandafter\exhyphenpenalty#1\relax
+         \expandafter\noexpand\csname\s@ved%
+         \expandafter\@gobble\string#2\endcsname
+         \discretionary{}{\expandafter\comp@ch\meaning#2.}{}%
+         \endgroup}}%
+       {\already@saved{#2}}}}%
+\newcommand\BinBreakHbox{\@ifbracket{\@BinBreakHbox[}%
+  {\@BinBreakHbox[\defaultpenalty]}}
+\@ifdefinable\@BinBreakHbox
+  {\def\@BinBreakHbox[#1]#2{\bb@access#2%
+    \@ifundefined{\s@ved\expandafter\@gobble\string#2}%
+     {\expandafter\let\csname\s@ved%
+        \expandafter\@gobble\string#2\endcsname#2
+      \edef#2{\begingroup\set@binnobreak
+        \expandafter\exhyphenpenalty#1\relax
+        \expandafter\noexpand\csname\s@ved%
+        \expandafter\@gobble\string#2\endcsname
+        \discretionary{}{\hbox
+          {\m@th$\expandafter\noexpand\csname\s@ved%
+           \expandafter\@gobble\string#2\endcsname$}}{}%
+        \endgroup}}%
+     {\already@saved{#2}}}}
+\newcommand\BinBreakChar{\@ifbracket{\@BinBreakChar[}%
+  {\@BinBreakCharPen}}
+\newcommand\@BinBreakCharPen[1]%
+  {\mathchardef\reserved@a\mathcode`#1
+   \edef\reserved@b{\expandafter\mch@penalty\meaning\reserved@a.}%
+   \expandafter\@BinBreakChar\expandafter[\reserved@b]#1}
+\@ifdefinable\@BinBreakChar
+   {\def\@BinBreakChar[#1]#2#3{\bb@access#2%
+     \mathchardef#3\mathcode`#2
+      \begingroup\catcode`~\active
+        \lccode`\~`#2\catcode`#2\active
+        \lowercase{\gdef~{\begingroup\set@binnobreak
+          \expandafter\exhyphenpenalty#1\relax
+          #3\discretionary{}{\hbox{\m@th$#3$}}{}\endgroup}}\endgroup
+      \mathcode`#2"8000}}
+\newcommand\UnBinBreak[1]%
+ {\@ifundefined{\s@ved\expandafter\@gobble\string#1}
+ {\PackageWarning{BinBreak}
+  {Cannot restore \noexpand#1---original meaning was not saved}}%
+  {\expandafter\let\expandafter#1%
+     \csname\s@ved\expandafter\@gobble\string#1\endcsname
+   \expandafter\let\csname\s@ved%
+     \expandafter\@gobble\string#1\endcsname
+     \undefined}}
+\newcommand\UnBinBreakChar[2]%
+ {\expandafter\mathcode%
+   \expandafter`\expandafter#1%
+   \expandafter\gobble@mch\meaning#2.%
+   \let#2\undefined}
+\@ifdefinable\savedrelpenalty
+  {\xdef\savedrelpenalty{\the\relpenalty}}
+\@ifdefinable\savedbinoppenalty
+  {\xdef\savedbinoppenalty{\the\binoppenalty}}
+\newcommand\set@binnobreak
+  {\relpenalty\@M\relax
+   \binoppenalty\@M\relax}
+\newcommand\set@binbreak
+  {\expandafter\relpenalty\savedrelpenalty\relax
+   \expandafter\binoppenalty\savedbinoppenalty\relax}
+\edef\defaultpenalty{\savedbinoppenalty}
+\ExecuteOptions{save,nobreak}
+\ProcessOptions
+\endinput
+%%
+%% End of file `binbreak.sty'.

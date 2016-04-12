@@ -1,0 +1,374 @@
+\chapter{Základy řešení parciálních diferenciálních rovnic}
+
+Zavzpomíname-li na základní kurzy matematické analýzy, jistě si vzpomene, jak 
+nesnadné je analytické řešení parciálních diferenciálních rovnic, pokud vůbec lze 
+řešení najít. Když pomineme učebnicové příklady (za zmínku stojí například vlnová 
+rovnice), stojíme většinou před neřešitelným problémem. Naštestí pro nás ale ne pro 
+fyziku obecně, pomocnou ruku nám podá numerické řešení problému a síla současné 
+výpočetní techniky~-- počítače. Jak ale na to? Jak převést rovnici, kterou jsme 
+dostali aplikací fyzikálních zákonů pro konkrétní problém do řeči čísel? 
+Následující kapitola se vám pokusí v tom udělat trochu jasněji.
+
+\section{Metoda konečných diferencí}
+
+Jednou z nejpoužívanějších metod, která je zároveň vhodná pro názornou ilustraci, 
+je {\it metoda konečných diferencí}. Nejedná se o nic jiného než diskrétní 
+reprezentaci patřičných proměnných, funkcí a derivací definovaného problému. Zní to 
+složitě ale ve skutečnosti je to velmi jednoduché a vše co k tomu budeme potřebovat 
+je znalost Taylorova rozvoje funkce. Názorně si to ilustrujeme na jednoduché 
+rovnici
+
+\begin{equation}
+\frac{\partial u}
+	 {\partial t} + v \frac{\partial u}
+	                       {\partial x} = D \frac{\partial^2 u}
+	                                             {\partial 	x^2}
+\label{rovnice}
+\end{equation}
+
+zahrnující v sobě jak difúzní $D\frac{\partial^2 u}
+                                      {\partial x^2}$,
+tak advekční člen $v\frac{\partial u}
+                          {\partial x}$.                          
+Funkce $u(x, t)$ nám udává $x$-ovou hodnotu rychlosti. Numerický přístup řešení 
+této rovnice spočívá v reprezentaci $u$ souborem diskrétních hodnot $u_{i}$ v 
+bodech diskrétní sítě
+
+$$
+x_0, x_1, x_2, \dots, x_i, \dots, x_N \quad (x_0 < x_1 < x_2 \dots < x_N)
+$$
+
+Na první pohled je patrné, že s rostoucím počtem bodů sítě, se bude naše 
+reprezentace blížit skutečné, které bychom dosáhli pro $N = \infty$.
+
+\subsection*{Prostorové derivace}
+
+S touto reprezentací se můžeme dále pustit do aproximací prostorových derivací. K 
+tomu využijeme Taylorova rozvoje okolo bodu $u_i$ pro hodnotu v bodě $u_{i+1}$. 
+Směle můžeme psát
+
+\begin{equation}
+u_{i+1} = u_{i} +
+  \left( \frac{\partial     u}{\partial   x} \right)_{i} \Delta x
++ \left( \frac{{\partial}^2 u}{\partial x^2} \right)_{i} \frac{(\Delta x)^2}{2}
++ \left( \frac{{\partial}^3 u}{\partial x^3} \right)_{i} \frac{(\Delta x)^3}{6}
++ \dots
+\label{FF}
+\end{equation}
+
+Obdobně pro hodnotu $u_{i-1}$
+
+\begin{equation}
+u_{i-1} = u_{i}
+- \left( \frac{\partial     u}{\partial   x} \right)_{i} \Delta x 
++ \left( \frac{{\partial}^2 u}{\partial x^2} \right)_{i} \frac{(\Delta x)^2}{2}
+- \left( \frac{{\partial}^3 u}{\partial x^3} \right)_{i}\frac{(\Delta x)^3}{6}
++ \dots
+\label{FB}
+\end{equation}
+
+Z Taylorova rozvoje můžeme jednoduše vyjádřit vztah pro derivaci v daném bodě $i$ 
+pomocí hodnot např. $u_{i}$ a $u_{i+1}$ (nebo také $u_{i}$ a $u_{i-1}$)
+
+\begin{equation}
+\left( \frac{\partial u}{\partial x} \right)_{i}
+= \frac{u_{i+1}-u_{i}}{\Delta x}
+- \left( \frac{{\partial}^2 u}{\partial x^2} \right) \frac{\Delta x}{2}
+- \left( \frac{{\partial}^3 u}{\partial x^3} \right) \frac{(\Delta x)^2}{6}
++ \dots
+\end{equation}
+
+Tím se dostaváme k určení prvních derivací podle prostorové souřadnice, rozlišujeme
+
+\begin{tcolorbox}[title=Diference I. řádu - první derivace]
+\begin{itemize}
+    \item{ {\bf Prostorové diference (vpřed) FDS}
+\begin{equation}
+  \left( \frac{\partial u}{\partial x}\right)_{i}
+= \frac{u_{i+1}-u_{i}}{\Delta x}+O(\Delta x)
+\label{FD}
+\end{equation}}
+    \item{ {\bf Prostorové diference (dozadu) BDS}
+\begin{equation}
+  \left( \frac{\partial u}{\partial x}\right)_{i}
+= \frac{u_{i}-u_{i-1}}{\Delta x} + O(\Delta x)
+\label{BD}
+\end{equation}}
+\end{itemize}
+\end{tcolorbox}
+
+Vidíme tak, že první prostorové derivace naší funkce můžeme jednoduše vyjádřit ze 
+znalostí hodnot funkce $u$ v diskrétních bodech $i-1,i,i+1$, v závislosti na 
+zvoleném způsobu (\ref{FD}) resp. (\ref{BD}). Chyba, které se při této aproximaci 
+dopouštíme, je prvního řádu, jak je patrné z Taylorova rozvoje.
+
+V mnoha případech není však metoda prvního řádu dostatečná, je třeba použít 
+přesnější metody, tedy druhého řádu. Odečtením rovnic (\ref{FF}) a (\ref{FB}) pro 
+diferenci vzad a vpřed s Taylorovym rozvojem dostaneme výraz pro středovou 
+diferenci (CD) s přesností druhého řádu \\
+
+\begin{tcolorbox}[title = Diference II.řádu - první derivace]
+\begin{itemize}
+\item{{\bf Prostorové diference (centrální) CDS}
+\begin{equation}
+  \left( \frac{\partial u}{\partial x}\right)_{i}
+= \frac{u_{i+1}-u_{i-1}}{2\Delta x} + O(\Delta x)^2
+\label{CD}
+\end{equation}}
+\end{itemize}
+\end{tcolorbox}
+
+Nic nám již nebrání, abychom vyjádřili i druhé derivace. Stačí nám k tomu sečíst 
+rovnice (\ref{FF}) a (\ref{FB}) a po úpravě dostáváme pro druhou derivaci 
+diferenční vztah s přesností třetího řádu
+
+\begin{tcolorbox}[title = Diference I. řádu - druhá derivace]
+{\bf Diferenční vztah pro druhou derivaci}
+\begin{equation}
+  \left( \frac{{\partial}^2 u}{\partial x^2}\right)_{i}
+= \frac{u_{i+1} - 2 u_i + u_{i-1}}{(\Delta x)^2}
+\label{SecDer}
+\end{equation}
+\end{tcolorbox}
+
+\subsection*{Časové derivace}
+
+Obdobně budeme postupovat při určování časové derivace, nicméně je třeba přiznat, 
+že se nám situace trochu komplikuje. Příčina změny je patrná z předchozích vzorců, 
+rozdíl spočívá ve znalosti prostorových hodnot $u_i$ v daném časovém okamžiku. 
+Prostorové derivace můžeme vyjádřit velmi snadno, pro časovou derivaci je třeba 
+uvážit, že známé hodnoty funkce $u_i(t)$ jsou pouze ty současné (přítomnost) a z 
+předchozích kroků (minulost). Hodnoty následující nám známé nejsou a je třeba je 
+určit. Pro lepší pochopení si nejprve formálně vyjádříme časovou derivaci z rovnice 
+(\ref{rovnice})
+
+\begin{equation}
+\frac{\partial u}{\partial t} = h(u, x, t)
+\label{cas_der}
+\end{equation}
+
+Dále budeme postupovat jako pro prostorové derivace, nejprve diskretizujeme čas na 
+jednotlivé kroky
+
+$$
+t_0, t_1, t_2, \dots, t_{n}, \dots, t_{M} \quad (t_0 < t_1 < t_2 \dots < t_{M})
+$$
+
+a určíme jednotlivé derivace podle stejného receptu
+
+\begin{tcolorbox}[title=Časové diference I. řádu]
+\begin{itemize}
+\item{{\bf  (vpřed) FDT}
+\begin{equation}
+  \left( \frac{\partial u}{\partial t} \right)_{i}^{n}
+= \frac{u_{i}^{n+1} - u_{i}^{n}}{\Delta t} + O(\Delta t)
+\label{FD}
+\end{equation}}
+\end{itemize}
+\end{tcolorbox}
+
+Díky počatečním podmínkám známe v daném počátečním okamžiku všechny hodnoty $u_i$, 
+pro $i=1,\dots,N$. Jak je naznačeno indexem u derivace na pravé straně, v tomto 
+případě použijeme známé hodnoty z času $t=n$. Pro časovou derivaci (\ref{cas_der}) 
+platí
+
+\begin{eqnarray}
+\frac{u_{i}^{n+1} - u_{i}^{n}}{\Delta t} = h(u^{n}, x^{n}, t)
+\\
+u_{i}^{n+1} = u_{i}^n + h^{n} \Delta{t} + O(\Delta x)
+\end{eqnarray}
+
+Tento hojně využívaný přístup je označován jako explicitní metoda konečných 
+diferencí v čase směrem vpřed (FFTD). Obdobně pokud využijeme druhý způsob 
+vyjádření derivace, tedy
+
+\begin{tcolorbox}[title=Časové diference I. řádu]
+\begin{itemize}
+    \item{{\bf Časové diference (dozadu) BDT}
+\begin{equation}
+\left( \frac{\partial u}{\partial t} \right)_{i}^{n}
+= \frac{u_{i}^{n}-u_{i}^{n-1}}{\Delta t} + O(\Delta t) = \|^{n+1}\, 
+  \frac{u_{i}^{n+1}-u_{i}^{n}}{\Delta t} + O(\Delta t) 
+\label{BD}
+\end{equation}}
+\end{itemize}
+\end{tcolorbox}
+
+Rozdíl oproti předchozímu způsobu vyjádření spočívá v použití neznámých hodnot z 
+času $t = n+1$. Pro časovou derivaci (\ref{cas_der}) tak plyne
+
+\begin{eqnarray}
+\frac{u_{i}^{n+1}-u_{i}^n}{\Delta t} = h(u^{n+1}, x^{n+1}, t)
+\\
+u_{i}^{n+1} = u_{i}^n+h^{n+1}\Delta{t} + O(\Delta x),
+\end{eqnarray}
+
+která je označována jako implicitní metoda (BFTD). Zcela analogicky pak dostaneme 
+obdobné vyjádření (taktéž implicitní) pokud použijeme centrální diferenční schéma 
+(s přesností druhého řádu)
+
+\begin{equation}
+u_{i}^{n+1} = u_{i}^n + \frac{(h^{n+1} + h^{n})}{2} \Delta{t} + O(\Delta x)^2
+\end{equation}
+
+O tom, který ze způsobu vyjádření je lepší lze vést dlouhé diskuze, každý z těchto 
+způsobů má své výhody a nevýhody, ať už z hlediska výpočetních nároků a nebo 
+stability.
+
+Nyní je již vše připraveno pro převod (\ref{rovnice}) do diskrétního schématu. Pro 
+náš ilustrační případ zvolme pro časovou derivaci FD diferenci a CD pro advekční 
+člen, druhá derivace je dána vztahem (\ref{SecDer}). Dostáváme výraz
+
+\begin{equation}
+     \frac{u_{i}^{n+1} - u_i^{n}}{\Delta t}
+= - v \frac{u_{i+1}^n - u_{i-1}^n}{2\Delta x}
+  + D \frac{u_{i+1}^n - 2 u_i^n+u_{i-1}^n}{(\Delta x)^2}
+\end{equation}
+
+který ještě přeuspořádáme do podoby numerického schématu (označovaného jako FTCS), 
+abychom neznámé veličiny měli na leve straně a známe na pravé straně
+
+\begin{equation}
+u_{i}^{n+1} 
+= u_i^{n} 
+- \frac{1}{2} \frac{v \Delta t}{\Delta  x}(u_{i+1}^n - u_{i-1}^n)
++ D \frac{\Delta t}{(\Delta x)^2}(u_{i+1}^n - 2 u_{i}^{n} + u_{i-1}^n)
+\label{simplefinal}
+\end{equation}
+
+Je patrné, že způsob, jakým lze původní rovnici přepsat (\ref{rovnice}) do 
+diferenčního schématu není jednoznačný, máme nepřeberné množství možností 
+explicitních i implicitních způsobů, které se navzájem liší výpočetní náročností, 
+složitostí i stabilitou. V následujících odstavcích se seznámíme s 
+nejpouživanějšími metodami.
+
+\section{Nejjednodušší numerická schémata}
+
+\subsection*{Laxova metoda}
+
+Je jednou z nejjednoduších metod, hojně využivanou v numerické hydrodynamice. 
+Dostaneme ji nahrazením $u_i^{n}$ v časové derivaci v rovnici (\ref{simplefinal}) 
+průměrnou hodnotou určenou z jejich sousedů
+
+$$
+u_{i}^{n} \approx \frac{(u_{i+1}^{n} + u_{i-1}^n)}{2}
+$$
+
+Obdržíme Laxovo diferenční schéma
+
+\begin{equation}
+u_{i}^{n+1} 
+=   \frac{1}{2}(u_{i+1}^{n}+u_{i-1}^{n})
+-   \frac{1}{2}\frac{v\Delta t}{\Delta x}(u_{i+1}^n-u_{i-1}^n)
++ D \frac{\Delta t}{(\Delta x)^2}(u_{i+1}^n - 2 u_{i}^{n} + u_{i-1}^n)
+\end{equation}
+
+\subsection*{Upwind schéma }
+
+Zvolené schéma volí jiný přístup, respektuje fyzikální podstatu problému, jinými 
+slovy respektruje směr šíření proudu (tedy informace) v advekčním členu rovnice 
+(\ref{rovnice}). Místo použití CD prostorové diference pro advekční člen se použije 
+buď FD pro případ záporné advekční rychlosti$ v < 0$, nebo BD v případě kladné 
+advekční rychlosti $v>0$. Výsledné schéma
+
+\begin{eqnarray}
+  u_{i}^{n+1}
+= u_{i}^{n}
++ D\frac{\Delta t}{(\Delta x)^2}(u_{i+1}^n - 2 u_{i}^{n} + u_{i-1}^n)
+-
+\begin{cases}
+    \frac{v\Delta t}{\Delta x}(u_{i}^n - u_{i-1}^n) \quad v > 0
+    \\
+    \frac{v\Delta t}{\Delta x}(u_{i+1}^n - u_{i}^n) \quad v < 0
+\end{cases}
+\label{upwind}
+\end{eqnarray}
+
+\subsection*{Crank-Nicholson}
+
+Nemusíme se však omezit pouze na explicitní metody. Znamým příkladem implicitní 
+metody je Crankovo-Nicholsonovo schéma, kde pro výpočet použijeme hodnoty v čase 
+$t$ a $t+\Delta$ a to tak, že pro stanovení výsledné hodnoty použijeme průměr obou 
+hodnot. Rovnici přepíšeme (\ref{rovnice}),
+
+\begin{eqnarray}
+  u_{i}^{n+1}
+= u_i^{n}
+-   \frac{1}{2}\frac{v\Delta t}{\Delta x}
+    \left( \frac{1}{2}(u_{i+1}^{n+1} + u_{i+1}^{n})
+-   \frac{1}{2}(u_{i-1}^{n+1} + u_{i-1}^{n}) \right)
+\\
++ D \frac{\Delta t}{(\Delta x)^2}
+    \left( \frac{1}{2}(u_{i+1}^{n+1} + u_{i+1}^n)
+-   \frac{1}{2}(2 u_{i}^{n+1} + 2u_{i}^n)
++   \frac{1}{2}(u_{i-1}^{n+1} + u_{i-1}^n) \right)
+\end{eqnarray}
+
+a následně ještě schéma upravíme
+
+\begin{eqnarray}
+u_{i}^{n+1} & = & u_i^{n}
+- \frac{1}{4}\frac{v\Delta t}{\Delta x}
+  (u_{i+1}^{n+1} - u_{i-1}^{n+1} + u_{i+1}^{n} - u_{i-1}^n)
+  \\
+  \nonumber & + & D \frac{\Delta t}{(\Delta x)^2}
+  \frac{1}{2}(u_{i+1}^{n+1}-2u_{i}^{n+1}+u_{i-1}^{n+1}+u_{i+1}^n-2u_i^n+u_{i-1}^n)
+\label{crank_1}
+\end{eqnarray}
+
+Vidíme, že na rozdíl od předchozích případů nám neznámé hodnoty funkce 
+$u_j^{n+1}$ v diskrétních bodech $j$ vystupují i na pravé straně. Toto schéma 
+vede v tomto případě k řešení soustavy (ne)linearních rovnic (v případě nelinearity 
+nutno linearizovat - například Burgersova rovnice). Pokud však $v=0$, dostáváme 
+difůzní rovnici a lineární soustavu. Soustavu rovnic nejprve přepíšeme tak, že 
+všechny neznáme veličiny převedeme na levou stranu. Označme
+
+\begin{eqnarray}
+\sigma = \frac{D\Delta t}{2\Delta x^2} \\
+\rho   = \frac{1}{4}\frac{v\Delta t}{\Delta x}
+\end{eqnarray}
+
+pak můžeme psát pro rovnice (\ref{crank_1})
+
+\begin{equation}
+  u_{i-1}^{n+1}(-\sigma-\rho) + u_i^{n+1}(1+2\sigma) + u_{i+1}^{n+1}
+= u_{i-1}^n(\sigma+\rho) + u_i^{n}(1-2\sigma) + u_{i+1}^{n}(\sigma-\rho)
+\end{equation}
+
+V maticovém formalismu můžeme rovnice přepsat následovně s použitím substituce
+$A = - (\sigma+\rho)$, $B = (1+2\sigma)$, $C = (\rho-\sigma)$
+
+\begin{equation}
+\begin{pmatrix}
+B & C & 0 & \cdots & \cdots & 0 \\
+A & B & C & \ddots & \ddots & \vdots \\
+0 & A & B & \ddots & \ddots & \vdots \\
+\vdots & \ddots & \ddots & \ddots & \ddots & 0\\
+\vdots & \ddots & \ddots & A & B & C \\
+0 & \cdots & \cdots & 0 & A & B 
+\end{pmatrix}
+\begin{pmatrix}
+u_1 \\ u_2 \\ \vdots \\ \\ \vdots \\ u_{M}
+\end{pmatrix}
+=
+\begin{pmatrix}
+R_1 \\ R_2 \\ \vdots \\ \\ \vdots \\ R_M
+\end{pmatrix}
+\end{equation}
+
+Vektor pravých stran je dán vztahem
+
+\begin{equation}
+R_i = u_{i-1}^n(\sigma+\rho) + u_i^n(1-2\sigma)
+    + u_{i+1}^n(\sigma-\rho) \quad (i \neq 1,M)
+\end{equation}
+
+Pro případ hodnoty $R_0, R_M$, je nutné si uvědomit, že hodnota funkce 
+$u_{0}^{n+1}$ a $u_{M+1}^{n+1}$ je známa díky počatečním podmínkám, konkrétně
+
+\begin{eqnarray}
+u_{0}^{n+1} & = & u_{0}^{n} \\
+u_{M+1}^{n+1} & = & u_{M+1}^{n} 
+\end{eqnarray}
+
+\section{Numerické testy}
