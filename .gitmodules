@@ -1,3 +1,15 @@
 [submodule "books/numerical-python-book-code"]
-	path = books/numerical-python-book-code
-	url = https://github.com/jrjohansson/numerical-python-book-code.git
+    path = books/numerical-python-book-code
+    url = https://github.com/jrjohansson/numerical-python-book-code.git
+[submodule "students/ANM"]
+	path = students/ANM
+	url = https://github.com/Alseth/ANM.git
+[submodule "students/AstroNumerMethods"]
+	path = students/AstroNumerMethods
+	url = https://github.com/mavrix93/AstroNumerMethods.git
+[submodule "students/F7785_-_Numericke_metody_v_astrofyzice"]
+	path = students/F7785_-_Numericke_metody_v_astrofyzice
+	url = https://github.com/olowathor/F7785_-_Numericke_metody_v_astrofyzice.git
+[submodule "students/numerick-metody-v-astrofyzice"]
+	path = students/numerick-metody-v-astrofyzice
+	url = https://bitbucket.org/jbenacek/numerick-metody-v-astrofyzice.git
